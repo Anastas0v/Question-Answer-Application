@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Answer</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/javascript/answers.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a href="/auth/logged-in" class="nav-item nav-link">All Questions</a>
+        </div>
+    </div>
+</nav>
+
+<span id="questionID" th:text="${id}" style="display: none"></span>
+
+<button type="button" id="addButton" class="btn btn-primary btn-lg" data-toggle="modal"
+        data-target="#myModal">Add Answer
+</button>
+
+<br>
+<hr>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Answer Form</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="answerform" class="text-info">Answer:</label><br>
+                    <textarea type="text" name="answerform" cols="40" rows="5" id="answerform"
+                              class="form-control"></textarea>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8">
+                        <span id="answersErrorMessage"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="saveAnswer()">Submit</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Answer</th>
+        <th scope="col">Creator</th>
+        <th scope="col">Date Created</th>
+        <th scope="col"></th>
+        <th scope="col">Upvotes</th>
+        <th scope="col">Downvotes</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a: ${listAnswers}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.answer}"></td>
+        <td th:text="${a.creator}"></td>
+        <td th:text="${a.createdDate}"></td>
+        <td><a type="submit" class="btn btn-default" th:attr="onclick=|upVote('${a.id}')|"><i
+                class="glyphicon glyphicon-thumbs-up"></i></a>
+        </td>
+        <td th:text="${a.upVotes}"></td>
+        <td th:text="${a.downVotes}"></td>
+        <td><a class="btn btn-default" th:attr="onclick=|downVote('${a.id}')|"><i
+                class="glyphicon glyphicon-thumbs-down"></i></a>
+        </td>
+        <td><a class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

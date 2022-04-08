@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Register - Page</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 320px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/auth/login}">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="login" class="container text-center">
+        <h3 style="color: white">Register Form</h3>
+        <form id="login-form" th:action="@{/auth/register/redirect-to-login}" th:object="${user}"
+              method="post" style="max-width: 600px; margin: 0 auto;">
+            <div id="login-column" class="m-3">
+                <div class="form-group row">
+                    <div class="col-8">
+                        <input type="email" placeholder="xyz@gmail.com" th:field="*{email}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8">
+                        <input type="text" placeholder="Username" th:field="*{userName}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8">
+                        <input type="password" placeholder="Password" th:field="*{password}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8">
+                        <input type="number" placeholder="Age" th:field="*{age}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8" th:text="${errorMessage}">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-dark">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

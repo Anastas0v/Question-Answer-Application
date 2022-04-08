@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Questions - Page</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/javascript/questions.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <p class="nav-item" style="color: white" id="loggedInUser"></p>
+        </div>
+        <div class="navbar-nav">
+            <a th:href="@{/auth/logout}" class="nav-item nav-link" onclick="logOut()">Log Out</a>
+        </div>
+    </div>
+</nav>
+
+<button type="button" id="addButton" class="btn btn-primary btn-lg" data-toggle="modal"
+        data-target="#myModal">Add Question
+</button>
+
+<br>
+<hr>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Question Form</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="title" class="text-info">Title:</label><br>
+                    <input type="text" name="title" id="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="questionform" class="text-info">Question:</label><br>
+                    <textarea type="text" name="questionform" cols="40" rows="5" id="questionform"
+                              class="form-control"></textarea>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8">
+                        <span id="questionsErrorMessage"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="saveQuestion()">Submit</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Question</th>
+        <th scope="col">Creator</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Answers</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="q: ${listQuestions}">
+        <td th:text="${q.id}"></td>
+        <td th:text="${q.title}"></td>
+        <td th:text="${q.question}"></td>
+        <td th:text="${q.creator}"></td>
+        <td th:text="${q.createdDate}"></td>
+        <td>
+            <form th:action="@{|/answer/view-answer/${q.id}|}" method="get">
+                <button type="submit" class="btn btn-info"><i
+                        class="glyphicon glyphicon-plus"></i>
+                </button>
+            </form>
+        </td>
+        <td>
+            <a class="btn btn-danger" th:attr="onclick=|deleteQuestion('${q.id}')|"><i
+                    class="glyphicon glyphicon-trash"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
