@@ -12,15 +12,7 @@ A StackOverflow-style web application where users can ask questions, post answer
 
 ## Tech Stack
 
-- **Backend:** Java, Spring Boot
+- **Backend:** Java 8, Spring Boot
 - **Frontend:** HTML, JavaScript
 - **Database:** MySQL
 - **Build Tool:** Maven
-
-## Getting Started
-
-### Prerequisites
-
-- Java 17+
-- Maven 3.6+
-- Git
